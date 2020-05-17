@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import AlertDataService from "../../services/AlertDataService";
 import { toast } from "react-toastify";
-import "../table/AlertTable.css";
-import store from 'store';
-import { createBrowserHistory } from 'history'
+import "./AlertTable.css";
+import store from "store";
+import { createBrowserHistory } from "history";
 
-const history = createBrowserHistory()
+const history = createBrowserHistory();
 
 class AlertTable extends Component {
   constructor(props) {
@@ -16,10 +16,13 @@ class AlertTable extends Component {
     };
     this.refreshAlerts = this.refreshAlerts.bind(this);
     this.deleteAlertClicked = this.deleteAlertClicked.bind(this);
-    
   }
 
   componentDidMount() {
+    AlertDataService.getMaxIncId().then((response) => {
+      console.log(response.data);
+      this.setState({ count: response.data });
+    });
     this.refreshAlerts();
     this.interval = setInterval(this.refreshAlerts, 2000);
   }
@@ -29,30 +32,41 @@ class AlertTable extends Component {
       //console.log(response);
       this.setState({ alerts: response.data });
     });
-    var obj = this.state.alerts[this.state.alerts.length - 1];
+
     if (this.state.alerts.length > 0) {
-      //console.log(obj.id);
+      var obj = this.state.alerts[this.state.alerts.length - 1];
+
+      console.log(obj.id);
       // detect new requests
-      if (this.state.count < obj.id && this.state.count != 0) {
-        for (var i = this.state.count + 1; i <= obj.id; i++) {
-          toast.error("New alert " + `${i}` + " @ " + `${obj.createdAt}`, {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-          });
+      if (this.state.count < obj.id) {
+        for (var i = 0; i < this.state.alerts.length; i++) {
+          if (this.state.alerts[i].id > this.state.count) {
+            toast.error(
+              "New alert " +
+                `${this.state.alerts[i].id}` +
+                " @ " +
+                `${this.state.alerts[i].createdAt}`,
+              {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+              }
+            );
+          }
         }
+        this.setState({ count: obj.id });
       }
-      this.setState({ count: obj.id });
     }
   }
 
   deleteAlertClicked(id) {
     //alert("delete"+id);
     AlertDataService.deleteAlert(id).then((response) => {
-      toast.success("🗑️ Deleted alert " + `${id}`, {
+      const msg = `🗑️ Deleted alert `;
+      toast.success( msg+ `${id}`, {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: true,
@@ -65,11 +79,11 @@ class AlertTable extends Component {
     });
   }
 
-  handleLogout(){
-    store.remove('loggedIn');
+  handleLogout() {
+    store.remove("loggedIn");
     history.push("/");
     window.location.reload(false);
-  };
+  }
 
   componentWillUnmount() {
     clearInterval(this.interval);
@@ -78,34 +92,37 @@ class AlertTable extends Component {
   render() {
     return (
       <div>
-        <div class="container"  style={{ marginTop: "20px" }}>
+        <div class="container top-panel">
           <div class="row">
             <div class="col-sm">
-              <h4>All Alerts</h4>
+              <h4 >All Alerts</h4>
             </div>
             <div class="col-sm"></div>
             <div class="col-sm">
-              <button className="btn btn-warning float-right" onClick={() => this.handleLogout()}>Logout</button>
+              <button
+                className="btn btn-warning float-right"
+                onClick={() => this.handleLogout()}
+              >
+                Logout
+              </button>
             </div>
           </div>
         </div>
 
-        <div className="container" style={{ marginTop: "20px" }}>
-          <table className="table" >
+        <div className="container">
+          <table className="table">
             <thead>
               <tr>
-                <th style={{ backgroundColor: "#092445", color: "#ffffff" }}>
+                <th>
                   ID
                 </th>
-                <th style={{ backgroundColor: "#092445", color: "#ffffff" }}>
+                <th>
                   Description
                 </th>
-                <th style={{ backgroundColor: "#092445", color: "#ffffff" }}>
+                <th>
                   Timestamp
                 </th>
-                <th
-                  style={{ backgroundColor: "#092445", color: "#ffffff" }}
-                ></th>
+                <th></th>
               </tr>
             </thead>
             <tbody>

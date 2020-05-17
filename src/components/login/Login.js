@@ -1,10 +1,13 @@
 import React from "react";
-import { Grid, Form, Header, Message } from "semantic-ui-react";
-import { Helmet } from "react-helmet";
 import store from "store";
-import 'semantic-ui-css/semantic.min.css';
-import styles from "./styles.css";
-
+import { Helmet } from "react-helmet";
+import "./vendor/bootstrap/css/bootstrap.min.css";
+import "./fonts/font-awesome-4.7.0/css/font-awesome.min.css";
+import "./vendor/animate/animate.css";
+import "./vendor/css-hamburgers/hamburgers.min.css";
+import "./vendor/select2/select2.min.css";
+import "./css/util.css";
+import "./css/main.css";
 
 class Login extends React.Component {
   constructor(props) {
@@ -20,74 +23,127 @@ class Login extends React.Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  componentDidMount() {
-    document.body.style.backgroundImage = 'url("https://usersnap.com/blog/wp-content/uploads/2017/04/web-design-background.png")';
-  }
-
   onSubmit(e) {
     e.preventDefault();
+    //e.preventDefault();
+    //console.log("in onsubmit()");
 
     const { username, password } = this.state;
+    //console.log(username);
+    //console.log(password);
 
     this.setState({ error: false });
 
     if (!(username === "admin" && password === "pythonsucks")) {
-      return this.setState({ error: true });
+      this.setState({ error: true });
+    } else {
+      console.log("you're logged in. yay!");
+      store.set("loggedIn", true);
+      this.props.history.push("/home");
     }
-
-    console.log("you're logged in. yay!");
-    store.set("loggedIn", true);
-    this.props.history.push("/home");
   }
 
-  handleChange(e, { name, value }) {
-    this.setState({ [name]: value });
+  handleChange(e) {
+    //console.log(e.target.value)
+    //console.log(e.target.name);
+    this.setState({ [e.target.name]: e.target.value });
   }
 
   render() {
     const { error } = this.state;
-
+    //console.log(this.state.error);
     return (
-      <div className="bgImg">
-        <div>
-      <Grid>
+      <div class="limiter">
         <Helmet>
-          <title>SES | Login</title>
+          <script src="./vendor/jquery/jquery-3.2.1.min.js"></script>
+          <script src="./vendor/bootstrap/js/popper.js"></script>
+          <script src="./vendor/bootstrap/js/bootstrap.min.js"></script>
+          <script src="./vendor/select2/select2.min.js"></script>
+          <script src="./vendor/tilt/tilt.jquery.min.js"></script>
+
+          <script src="js/main.js"></script>
         </Helmet>
 
-        <Grid.Column width={6} />
-        <Grid.Column width={4}>
-          <Form
-            className={styles.loginForm}
-            error={error}
-            onSubmit={this.onSubmit}
-          >
-            <Header as="h1">Login</Header>
-            {error && (
-              <Message
-                error={error}
-                content="Incorrect Credentials !!"
-              />
-            )}
-            <Form.Input
-              inline
-              label="Username"
-              name="username"
-              onChange={this.handleChange}
-            />
-            <Form.Input
-              inline
-              label="Password"
-              type="password"
-              name="password"
-              onChange={this.handleChange}
-            />
-            <Form.Button type="submit">Go!</Form.Button>
-          </Form>
-        </Grid.Column>
-      </Grid>
+        <div class="container-login100">
+          <div class="wrap-login100">
+            <div class="login100-pic js-tilt" data-tilt>
+              <img src={require("./images/img-01.png")} alt="IMG" />
+            </div>
+
+            <form class="login100-form " onSubmit={this.onSubmit}>
+              <span class="login100-form-title">Administrator Login</span>
+              
+                          
+              <div class="wrap-input100 ">
+                <input
+                  class="input100"
+                  type="text"
+                  name="username"
+                  placeholder="User ID"
+                  onChange={this.handleChange}
+                />
+                <span class="focus-input100"></span>
+                <span class="symbol-input100">
+                  <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                </span>
+              </div>
+              <div class="wrap-input100 ">
+                <input
+                  class="input100"
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  onChange={this.handleChange}
+                />
+                <span class="focus-input100"></span>
+                <span class="symbol-input100">
+                  <i class="fa fa-lock" aria-hidden="true"></i>
+                </span>
+              </div>
+              <div class="container-login100-form-btn">
+                <input
+                  class="login100-form-btn"
+                  type="submit"
+                  value="Login"
+                ></input>
+                {error?(<h6>Invalid Credentials !!</h6>):null}
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
-      </div>
+
+      /*
+      //       className={styles.loginForm}
+      //       error={error}
+      //       onSubmit={this.onSubmit}
+      //     >
+      //       <Header as="h1">Login</Header>
+      //       {error && (
+      //         <Message
+      //           error={error}
+      //           content="Incorrect Credentials !!"
+      //         />
+      //       )}
+      //       <Form.Input
+      //         inline
+      //         label="Username"
+      //         name="username"
+      //         onChange={this.handleChange}
+      //       />
+      //       <Form.Input
+      //         inline
+      //         label="Password"
+      //         type="password"
+      //         name="password"
+      //         onChange={this.handleChange}
+      //       />
+      //       <Form.Button type="submit">Go!</Form.Button>
+      //     </Form>
+      //   </Grid.Column>
+      // </Grid>
+      // </div>
+      // </div>*/
     );
   }
 }

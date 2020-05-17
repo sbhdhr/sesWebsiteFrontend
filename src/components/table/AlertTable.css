@@ -1,3 +1,33 @@
-tr:nth-child(odd) {
-    background-color: "#000000";
+tr:nth-child(even) {
+  background-color: #e0e0e0;
+}
+
+th {
+  background-color: #092445;
+  color: #ffffff;
+}
+
+td{
+    color: black;
+}
+
+table{
+    margin-top: 30px;
+}
+
+.top-panel {
+  padding: 5px;
+  border-bottom: #cb1948 10px solid;
+  max-width: 100%;
+}
+
+h4 {
+  font-weight: bold;
+  color: #005297;
+  margin-left: 30%;
+  padding-top: 3px;
+}
+
+.btn-warning {
+  margin-right: 30%;
 }

@@ -1,16 +1,17 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
+import "./topbar.css";
 
 class TopBar extends Component {
-    render() {
-        return (
-            <div class="container">
-            <div class="page-header" style={{backgroundColor:"#076161",color:"#ffffff",padding:"10px",
-            textAlign:"center",borderRadius:"25px"}}>
-              <h1>SES Project Demo</h1>      
-            </div>    
-          </div>
-        )
-    }
+  render() {
+    return (
+      <div class="container top">
+        <div className="pageheader">
+          <img src={require("./img-01.png")} alt="logo"></img>
+          <span class="heading">Administrative Portal</span>
+        </div>
+      </div>
+    );
+  }
 }
 
-export default TopBar
+export default TopBar;

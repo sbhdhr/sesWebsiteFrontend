@@ -1,12 +1,17 @@
 import axios from 'axios'
 
 const API_URL = 'https://ses-project-bitsme.herokuapp.com/api'
+//const API_URL = 'http://localhost:8080/api'
 const ALERT_API_URL = `${API_URL}/alert`
 
 class AlertDataService {
 
     retrieveAllAlerts() {
         return axios.get(`${ALERT_API_URL}/all`);
+    }
+
+    getMaxIncId(){
+        return axios.get(`${ALERT_API_URL}/max`);
     }
 
     deleteAlert(id) {

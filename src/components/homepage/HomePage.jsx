@@ -4,7 +4,6 @@ import AlertTable from "../table/AlertTable";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import store from 'store';
-import styles from "./styles.css";
 
 class HomePage extends Component {
 
