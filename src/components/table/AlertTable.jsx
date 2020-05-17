@@ -96,9 +96,6 @@ class AlertTable extends Component {
           <div class="row">
             <div class="col-sm">
               <h4 >All Alerts</h4>
-            </div>
-            <div class="col-sm"></div>
-            <div class="col-sm">
               <button
                 className="btn btn-warning float-right"
                 onClick={() => this.handleLogout()}

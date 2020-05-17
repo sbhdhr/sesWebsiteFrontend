@@ -1,24 +1,29 @@
-body{
+body {
 }
 
 .pageheader {
-    color: slategray;
+  color: slategray;
   padding: 10px;
   border-bottom: #cb1948 10px solid;
-  
 }
 
-.top{
-    padding: 0px;
-    max-width: 100%;
+.top {
+  padding: 0px;
+  max-width: 100%;
 }
 
-img{
-    height: 80px;
-    display: inline-block;
+img {
+  height: 80px;
+  display: inline-block;
 }
 
-.heading{
-    font-size: 28px;
-    text-align: right;
+.heading {
+  font-size: 28px;
+  text-align: right;
+}
+
+@media (max-width: 768px) {
+}
+
+@media (max-width: 576px) {
 }

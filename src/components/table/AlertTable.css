@@ -19,15 +19,32 @@ table{
   padding: 5px;
   border-bottom: #cb1948 10px solid;
   max-width: 100%;
+  margin-right: 0px;
 }
 
 h4 {
+  display: inline-block;
   font-weight: bold;
   color: #005297;
-  margin-left: 30%;
+  margin-left: 10%;
   padding-top: 3px;
 }
 
 .btn-warning {
-  margin-right: 30%;
+  margin-right: 10%;
+}
+
+
+
+@media (max-width: 768px) {
+  th{
+    font-size: 14px;
+  }
+  td{
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 576px) {
+
 }
