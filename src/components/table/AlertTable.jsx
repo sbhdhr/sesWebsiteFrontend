@@ -114,11 +114,15 @@ class AlertTable extends Component {
                   ID
                 </th>
                 <th>
+                  Event ID
+                </th>
+                <th>
                   Description
                 </th>
                 <th>
                   Timestamp
                 </th>
+                <th></th>
                 <th></th>
               </tr>
             </thead>
@@ -126,8 +130,16 @@ class AlertTable extends Component {
               {this.state.alerts.map((alert) => (
                 <tr key={alert.id}>
                   <td>{alert.id}</td>
+                  <td>{alert.eventId}</td>
                   <td>{alert.desc}</td>
                   <td>{alert.createdAt}</td>
+                  <td>
+                    <button
+                      className="btn btn-success"
+                    >
+                      Delete
+                    </button>
+                  </td>
                   <td>
                     <button
                       className="btn btn-danger"
