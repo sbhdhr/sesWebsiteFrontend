@@ -9,6 +9,7 @@ th {
 
 td{
     color: black;
+    padding: 7px;
 }
 
 table{
@@ -30,6 +31,12 @@ h4 {
   padding-top: 3px;
 }
 
+.btn{
+  white-space: normal;
+  word-wrap: break-word;
+  padding: 5px;
+}
+
 .btn-warning {
   margin-right: 10%;
 }
@@ -45,6 +52,12 @@ h4 {
   }
   td{
     font-size: 12px;
+  }
+  .btn{
+    white-space: normal;
+    word-wrap: break-word;
+    padding: 4px;
+    font-size: small;
   }
 }
 

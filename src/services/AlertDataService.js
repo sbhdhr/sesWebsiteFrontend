@@ -20,6 +20,12 @@ class AlertDataService {
         console.log(a);
         return a;
     }
+
+    handleAlert(id) {
+        var a = axios.put(`${ALERT_API_URL}/${id}`);
+        console.log(a);
+        return a;
+    }
 }
 
 export default new AlertDataService()

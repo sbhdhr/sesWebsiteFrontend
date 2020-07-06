@@ -62,11 +62,11 @@ class AlertTable extends Component {
     }
   }
 
-  deleteAlertClicked(id) {
+  deleteAlertClicked(id,event) {
     //alert("delete"+id);
     AlertDataService.deleteAlert(id).then((response) => {
       const msg = `🗑️ Deleted alert `;
-      toast.success( msg+ `${id}`, {
+      toast.success(msg + `${id}`+` Event:`+ `${event}`, {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: true,
@@ -75,6 +75,21 @@ class AlertTable extends Component {
         draggable: true,
       });
       //this.setState({ message: `Delete of alert ${id} Successful` })
+      this.refreshAlerts();
+    });
+  }
+
+  handleAlertClicked(id,event) {
+    AlertDataService.handleAlert(id).then((response) => {
+      const msg = `✅ Alert marked solved `;
+      toast.success(msg + `${id}`+` Event:`+ `${event}`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
       this.refreshAlerts();
     });
   }
@@ -95,7 +110,7 @@ class AlertTable extends Component {
         <div class="container top-panel">
           <div class="row">
             <div class="col-sm">
-              <h4 >All Alerts</h4>
+              <h4>All Alerts</h4>
               <button
                 className="btn btn-warning float-right"
                 onClick={() => this.handleLogout()}
@@ -110,18 +125,10 @@ class AlertTable extends Component {
           <table className="table">
             <thead>
               <tr>
-                <th>
-                  ID
-                </th>
-                <th>
-                  Event ID
-                </th>
-                <th>
-                  Description
-                </th>
-                <th>
-                  Timestamp
-                </th>
+                <th>ID</th>
+                <th>Event ID</th>
+                <th>Description</th>
+                <th>Timestamp</th>
                 <th></th>
                 <th></th>
               </tr>
@@ -134,16 +141,23 @@ class AlertTable extends Component {
                   <td>{alert.desc}</td>
                   <td>{alert.createdAt}</td>
                   <td>
-                    <button
+                    {alert.handled ? (
+                        <button className="btn btn-success" disabled>
+                          Handled
+                        </button>
+                    ) : (
+                      <button
                       className="btn btn-success"
+                      onClick={() => this.handleAlertClicked(alert.id,alert.eventId)}
                     >
-                      Delete
+                      Mark as Handled
                     </button>
+                    )}
                   </td>
                   <td>
                     <button
                       className="btn btn-danger"
-                      onClick={() => this.deleteAlertClicked(alert.id)}
+                      onClick={() => this.deleteAlertClicked(alert.id,alert.eventId)}
                     >
                       Delete
                     </button>
